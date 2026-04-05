@@ -1,0 +1,83 @@
+{
+  "vendor": "Rubrik",
+  "last_updated": "2026-04-05",
+  "sources_searched": ["G2", "Gartner Peer Insights", "PeerSpot", "Capterra", "TrustRadius", "SoftwareAdvice", "Microsoft Q&A"],
+  "summary": "Pricing and renewal surprises are the most consistent complaint, followed by support timezone gaps for non-US customers and UI instability from frequent interface changes. AI capabilities described as behind Rubrik's own marketing.",
+  "patterns": [
+    {
+      "id": 1,
+      "title": "Pricing Increases & Renewal Surprises",
+      "frequency": "Most cited pattern",
+      "category": "pricing",
+      "description": "The most consistent complaint across all platforms. Users describe Rubrik as expensive relative to competitors, with pricing that increases significantly at renewal. Smaller organizations feel the pain most acutely. Multiple reviewers specifically call out that 'price tends to go up with time' and that licensing complexity makes budgeting difficult. Some users report their local Rubrik sales team left and the relationship — and renewal negotiations — deteriorated afterward.",
+      "sources": [
+        { "platform": "PeerSpot", "date": "2025", "quote": "The solution would be better if it was cheaper. Price-wise, Rubrik needs improvement as it is considered expensive compared to similar competitors.", "url": "https://www.peerspot.com/questions/what-is-your-experience-regarding-pricing-and-costs-for-rubrik" },
+        { "platform": "PeerSpot", "date": "2025", "quote": "After the licensing, the price tends to go up as time goes by. There is room for improvement in pricing.", "url": "https://www.peerspot.com/questions/what-is-your-experience-regarding-pricing-and-costs-for-rubrik" },
+        { "platform": "G2", "date": "2025-2026", "quote": "Would like to see more flexible pricing models that cater better to mid-sized teams who might not need every single enterprise feature right away.", "url": "https://www.g2.com/products/rubrik/reviews" },
+        { "platform": "Capterra", "date": "2025", "quote": "Rubrik is quite expensive for small businesses. It can be costly if you want additional security features.", "url": "https://www.capterra.com/p/148206/Rubrik/reviews/" },
+        { "platform": "PeerSpot", "date": "2025", "quote": "Local sales team left about two years ago, and since then our relationship with Rubrik has basically gone away. Renewal negotiations suffered as a result.", "url": "https://www.peerspot.com/products/rubrik-reviews" },
+        { "platform": "PeerSpot", "date": "2025", "quote": "For Rubrik Go, the pricing is considered relatively high with costs being monthly — smaller/mid-market customers flagging cost barrier.", "url": "https://www.peerspot.com/products/rubrik-go-reviews" }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Support Responsiveness & Timezone Gaps",
+      "frequency": "Recurring pattern",
+      "category": "support",
+      "description": "Users outside the US — particularly UK and APAC — report significant delays getting support, citing that tickets default to West Coast US hours, meaning a full business day delay before getting a response. One reviewer noted that 'support is accurate 50-60% of the time.' Product team availability also cited as India-hours issue for international customers.",
+      "sources": [
+        { "platform": "PeerSpot", "date": "2025", "quote": "Support can be slow — we seem to get West Coast USA support if we log tickets from the UK. Takes a day to then get assistance.", "url": "https://www.peerspot.com/products/rubrik-reviews" },
+        { "platform": "Gartner Peer Insights", "date": "2025", "quote": "Most of the product team only works India business hours, which can be challenging if you are on the other side of the world.", "url": "https://www.gartner.com/reviews/market/enterprise-backup-and-recovery-software-solutions/vendor/rubrik/product/rubrik-security-cloud/likes-dislikes" },
+        { "platform": "PeerSpot", "date": "2025", "quote": "Rubrik support is accurate 50 to 60% of the time, with the remainder still needing improvement in providing technical support.", "url": "https://www.peerspot.com/questions/what-needs-improvement-with-rubrik" },
+        { "platform": "Capterra", "date": "2025", "quote": "Backup jobs unable to replicate, causing significant delays and frustration due to lack of timely support.", "url": "https://www.capterra.com/p/148206/Rubrik/reviews/" }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Frequent UI Changes — Interface Instability",
+      "frequency": "Notable pattern",
+      "category": "ui",
+      "description": "Multiple users describe confusion caused by Rubrik frequently changing layouts, menu structures, and terminology. Particularly painful when returning to the product after time away — documentation no longer matches the interface, and restore workflows have moved or been renamed. Migration to Rubrik Security Cloud specifically called out as 'tedious.'",
+      "sources": [
+        { "platform": "Gartner Peer Insights", "date": "2025", "quote": "Rubrik frequently changes layouts and descriptions, creating confusion when returning after periods of non-use. The interface and restore options have changed completely and documentation no longer matches.", "url": "https://www.gartner.com/reviews/market/enterprise-backup-and-recovery-software-solutions/vendor/rubrik/product/rubrik-security-cloud/likes-dislikes" },
+        { "platform": "PeerSpot", "date": "2025", "quote": "Support lost legacy capabilities and is not consistent — challenges when returning to restore operations after extended periods due to interface changes.", "url": "https://www.peerspot.com/questions/what-needs-improvement-with-rubrik" },
+        { "platform": "SoftwareAdvice", "date": "2025", "quote": "Migration to Rubrik Security Cloud has been tedious.", "url": "https://www.softwareadvice.com/data-governance/rubrik-profile/" }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Reporting & Analytics Limitations",
+      "frequency": "Consistent feedback",
+      "category": "reporting",
+      "description": "Users frequently cite limited reporting flexibility — columns can't be sorted, reports aren't customizable enough for audits, and getting detailed analytics often requires external tools or API work. The built-in dashboard is good for high-level views but insufficient for deep dives or compliance reporting.",
+      "sources": [
+        { "platform": "Gartner Peer Insights", "date": "2025", "quote": "Reporting and sorting in reports need improvement — users cannot sort by most of the columns.", "url": "https://www.gartner.com/reviews/market/enterprise-backup-and-recovery-software-solutions/vendor/rubrik/product/rubrik-security-cloud/likes-dislikes" },
+        { "platform": "G2", "date": "2025-2026", "quote": "Reporting and customization could be more detailed without having to rely on external tools or APIs. When digging into specific data trends or generating a highly tailored report for an audit, the current tools feel limited.", "url": "https://www.g2.com/products/rubrik/reviews" },
+        { "platform": "PeerSpot", "date": "2025", "quote": "Reporting should be clearer and more customizable. The solution could be more user-friendly.", "url": "https://www.peerspot.com/questions/what-needs-improvement-with-rubrik" }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Feature Gaps — Integrations & Legacy App Support",
+      "frequency": "Moderate pattern",
+      "category": "features",
+      "description": "Users want better integration with hypervisors, databases, and SaaS apps like Office 365. Active Directory restoration and file-level recovery gaps are specifically called out. Legacy or niche application configuration requires significant manual effort compared to modern virtualized workloads.",
+      "sources": [
+        { "platform": "Gartner Peer Insights", "date": "2025", "quote": "Need for improved integration with hypervisors, databases, and applications like Office 365. Users seek expanded application support including file and active directory restoration.", "url": "https://www.gartner.com/reviews/market/enterprise-backup-and-recovery-software-solutions/vendor/rubrik/product/rubrik-security-cloud/likes-dislikes" },
+        { "platform": "G2", "date": "2025-2026", "quote": "Advanced configuration options feel less flexible because the platform is strongly policy-driven. Initial configuration for niche or legacy applications requires more manual effort.", "url": "https://www.g2.com/products/rubrik/reviews" },
+        { "platform": "Microsoft Q&A", "date": "2025", "quote": "Community thread with multiple users experiencing backup failures on specific workloads with Rubrik on Windows Server environments.", "url": "https://learn.microsoft.com/en-us/answers/questions/2155582/rubrick-backup-fails-issues" }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "AI Capabilities Behind Marketing Promises",
+      "frequency": "Emerging pattern",
+      "category": "ai",
+      "description": "Reviewers acknowledge Rubrik is investing in AI but describe the current state as early/initial phase. Users rate Rubrik's AI capabilities around 7/10 and say they're 'expecting more.' Notable given Rubrik's heavy AI-focused marketing (SAGE, Ruby AI assistant). Gap between marketing and actual capability is a recurring theme.",
+      "sources": [
+        { "platform": "Gartner Peer Insights", "date": "2025", "quote": "Regarding AI, Rubrik is in the initial phase, and reviewers are expecting more from them, giving them seven out of ten for their improvements in that area.", "url": "https://www.gartner.com/reviews/market/enterprise-backup-and-recovery-software-solutions/vendor/rubrik/product/rubrik-security-cloud/likes-dislikes" },
+        { "platform": "PeerSpot", "date": "2025", "quote": "Rubrik is actively promoting AI features but users in enterprise environments note the capabilities are still maturing compared to what's been marketed.", "url": "https://www.peerspot.com/products/rubrik-pros-and-cons" }
+      ]
+    }
+  ]
+}

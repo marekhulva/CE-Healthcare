@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CommVault Field Intelligence Hub</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d0f14; color: #e2e8f0; font-family: 'Inter', -apple-system, sans-serif; min-height: 100vh; }
+
+  /* HEADER */
+  .header { background: #12151d; border-bottom: 1px solid #1e2435; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg, #005bac, #0078d4); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .logo-text { font-size: 18px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+  .logo-sub { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-top: 1px; }
+  .header-right { display: flex; align-items: center; gap: 16px; }
+  .timestamp { font-size: 12px; color: #64748b; }
+  .timestamp span { color: #94a3b8; }
+  .btn { padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; border: none; transition: all 0.15s; }
+  .btn-primary { background: #005bac; color: #fff; }
+  .btn-primary:hover { background: #0078d4; }
+  .btn-ghost { background: transparent; color: #94a3b8; border: 1px solid #1e2435; }
+  .btn-ghost:hover { background: #1a1f2e; color: #e2e8f0; }
+  .live-badge { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #22c55e; }
+  .live-dot { width: 7px; height: 7px; background: #22c55e; border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  /* LAYOUT */
+  .container { max-width: 1100px; margin: 0 auto; padding: 24px 24px 60px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .full { grid-column: 1 / -1; }
+
+  /* SECTION CARD */
+  .card { background: #12151d; border: 1px solid #1e2435; border-radius: 12px; overflow: hidden; }
+  .card-header { padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+  .card-header:hover { background: #161b27; }
+  .card-title { display: flex; align-items: center; gap: 10px; }
+  .card-icon { font-size: 18px; }
+  .card-label { font-size: 14px; font-weight: 600; color: #f1f5f9; }
+  .card-count { font-size: 11px; background: #1e2435; color: #64748b; padding: 2px 8px; border-radius: 20px; margin-left: 4px; }
+  .card-actions { display: flex; align-items: center; gap: 8px; }
+  .copy-btn { font-size: 11px; padding: 4px 10px; background: #1e2435; border: none; border-radius: 4px; color: #94a3b8; cursor: pointer; }
+  .copy-btn:hover { background: #263045; color: #e2e8f0; }
+  .chevron { color: #475569; font-size: 12px; transition: transform 0.2s; }
+  .collapsed .chevron { transform: rotate(-90deg); }
+  .card-body { padding: 0 20px 20px; border-top: 1px solid #1e2435; }
+
+  /* ITEMS */
+  .item { padding: 16px 0; border-bottom: 1px solid #1a1f2e; }
+  .item:last-child { border-bottom: none; }
+  .item-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+  .severity { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .severity-critical { background: rgba(239,68,68,0.15); color: #f87171; }
+  .severity-high { background: rgba(249,115,22,0.15); color: #fb923c; }
+  .severity-medium { background: rgba(234,179,8,0.15); color: #fbbf24; }
+  .severity-low { background: rgba(34,197,94,0.15); color: #4ade80; }
+  .item-source { font-size: 11px; color: #475569; }
+  .item-source a { color: #3b82f6; text-decoration: none; }
+  .item-source a:hover { text-decoration: underline; }
+  .item-date { font-size: 11px; color: #475569; }
+  .item-title { font-size: 14px; font-weight: 600; color: #f1f5f9; margin-bottom: 6px; line-height: 1.4; }
+  .item-body { font-size: 13px; color: #94a3b8; line-height: 1.6; margin-bottom: 10px; }
+  .item-body strong { color: #cbd5e1; }
+
+  /* COMPETITOR TAG */
+  .comp-tag { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; }
+  .comp-rubrik { background: rgba(168,85,247,0.15); color: #c084fc; }
+  .comp-veeam { background: rgba(34,197,94,0.15); color: #4ade80; }
+  .comp-cohesity { background: rgba(249,115,22,0.15); color: #fb923c; }
+  .comp-barracuda { background: rgba(59,130,246,0.15); color: #60a5fa; }
+
+  /* TALK TRACK */
+  .talk-track { background: #0d1117; border-left: 3px solid #005bac; border-radius: 0 6px 6px 0; padding: 10px 14px; margin-top: 10px; }
+  .talk-track-label { font-size: 10px; font-weight: 700; color: #005bac; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
+  .talk-track-text { font-size: 12px; color: #94a3b8; line-height: 1.6; font-style: italic; }
+
+  /* DEAL AMMO */
+  .ammo-disclaimer { font-size: 12px; color: #475569; padding: 12px 0 4px; font-style: italic; border-bottom: 1px solid #1a1f2e; margin-bottom: 4px; }
+  .ammo-item { display: flex; gap: 12px; padding: 14px 0; border-bottom: 1px solid #1a1f2e; }
+  .ammo-item:last-child { border-bottom: none; }
+  .ammo-num { width: 22px; height: 22px; background: #005bac; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0; margin-top: 1px; }
+  .ammo-content { flex: 1; }
+  .ammo-title { font-size: 13px; font-weight: 600; color: #f1f5f9; margin-bottom: 4px; }
+  .ammo-body { font-size: 13px; color: #94a3b8; line-height: 1.6; }
+  .ammo-refs { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .ammo-ref { font-size: 11px; background: #1e2435; color: #64748b; padding: 2px 8px; border-radius: 4px; }
+
+  /* SECTION LABEL */
+  .section-intro { font-size: 12px; color: #475569; padding: 12px 0 0; }
+
+  /* SMS MOCKUP SECTION */
+  .sms-section { margin-top: 40px; }
+  .sms-section-title { font-size: 13px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .phone-wrap { display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap; }
+  .phone { width: 320px; background: #1a1a1a; border-radius: 40px; padding: 12px; border: 8px solid #2a2a2a; box-shadow: 0 20px 60px rgba(0,0,0,0.5); flex-shrink: 0; }
+  .phone-screen { background: #000; border-radius: 30px; overflow: hidden; }
+  .phone-statusbar { background: #1c1c1e; padding: 12px 20px 8px; display: flex; justify-content: space-between; font-size: 12px; color: #fff; font-weight: 600; }
+  .phone-messages-header { background: #1c1c1e; padding: 8px 16px 12px; text-align: center; border-bottom: 1px solid #2c2c2e; }
+  .phone-contact { font-size: 14px; font-weight: 600; color: #fff; }
+  .phone-contact-sub { font-size: 11px; color: #636366; margin-top: 2px; }
+  .phone-body { background: #000; padding: 16px 12px; min-height: 400px; }
+  .sms-bubble { background: #1c1c1e; border-radius: 18px 18px 18px 4px; padding: 12px 14px; max-width: 280px; margin-bottom: 8px; }
+  .sms-text { font-size: 13px; color: #fff; line-height: 1.5; }
+  .sms-text a { color: #0a84ff; }
+  .sms-time { font-size: 10px; color: #636366; margin-top: 6px; }
+  .phone-note { margin-top: 16px; font-size: 12px; color: #475569; line-height: 1.6; max-width: 380px; }
+  .phone-note strong { color: #94a3b8; }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+  <div class="logo">
+    <div class="logo-icon">🛡️</div>
+    <div>
+      <div class="logo-text">Field Intelligence Hub</div>
+      <div class="logo-sub">Commvault · Daily Briefing</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="live-badge"><div class="live-dot"></div> Live</div>
+    <div class="timestamp">Generated <span>Today, 6:02 AM ET</span></div>
+    <button class="btn btn-ghost">📤 SMS Digest</button>
+    <button class="btn btn-primary">↻ Regenerate</button>
+  </div>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="container">
+
+  <!-- ROW 1: Threat + Policy -->
+  <div class="grid">
+
+    <!-- SECTION 1: Threat Landscape -->
+    <div class="card full">
+      <div class="card-header">
+        <div class="card-title">
+          <span class="card-icon">🔴</span>
+          <span class="card-label">Threat Landscape Pulse</span>
+          <span class="card-count">4 incidents · past 7 days</span>
+        </div>
+        <div class="card-actions">
+          <button class="copy-btn">Copy Section</button>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="section-intro">What happened in the wild this week. Real incidents, real impact — use this to open conversations.</p>
+
+        <!-- Item 1 -->
+        <div class="item">
+          <div class="item-meta">
+            <span class="severity severity-critical">Critical</span>
+            <span class="item-date">Apr 3, 2026</span>
+            <span class="item-source">via <a href="#">Reuters</a> · <a href="#">BleepingComputer</a></span>
+          </div>
+          <div class="item-title">Major US healthcare network hit by ransomware — 2.1M patient records encrypted, 6-day outage</div>
+          <div class="item-body">
+            A ransomware group exploited an unpatched VMware vulnerability across three hospital systems. Backup systems were targeted first, delaying recovery. The organization paid $4.2M ransom after backups were rendered unusable. EHR access was down for 6 days. <strong>Attack vector: VMware ESXi exploit + backup wiper payload.</strong>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="item">
+          <div class="item-meta">
+            <span class="severity severity-high">High</span>
+            <span class="item-date">Apr 1, 2026</span>
+            <span class="item-source">via <a href="#">Dark Reading</a></span>
+          </div>
+          <div class="item-title">Financial services firm in NYC loses 18 months of transaction data after backup corruption</div>
+          <div class="item-body">
+            A mid-size broker-dealer discovered their backup chain had been silently corrupted for 18 months — only surfaced during a DR test. No ransomware involved. <strong>Root cause: no integrity verification on backup jobs.</strong> Regulators notified under SEC disclosure rules. Cost: estimated $8M in reconstruction.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: Policy Watch -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          <span class="card-icon">📋</span>
+          <span class="card-label">Policy & Regulatory Watch</span>
+          <span class="card-count">2 updates</span>
+        </div>
+        <div class="card-actions">
+          <button class="copy-btn">Copy Section</button>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="item">
+          <div class="item-meta">
+            <span class="severity severity-high">High Impact</span>
+            <span class="item-date">Apr 2, 2026</span>
+            <span class="item-source">via <a href="#">CISA.gov</a></span>
+          </div>
+          <div class="item-title">CISA releases updated SLTT Cyber Resilience guidance — mandatory DR testing for critical infra</div>
+          <div class="item-body">State, Local, Tribal, and Territorial orgs now required to conduct documented DR exercises twice annually. Non-compliance affects federal grant eligibility. Plain english: your SLED prospects just got a compliance mandate they have to document.</div>
+        </div>
+
+        <div class="item">
+          <div class="item-meta">
+            <span class="severity severity-medium">Watch</span>
+            <span class="item-date">Mar 31, 2026</span>
+            <span class="item-source">via <a href="#">SEC.gov</a></span>
+          </div>
+          <div class="item-title">SEC clarifies 4-day cyber disclosure rule — backup failure counts as "material incident"</div>
+          <div class="item-body">New SEC guidance explicitly states that backup failure resulting in data unavailability qualifies as a material cybersecurity incident requiring 8-K disclosure within 4 business days. This is new. Public company prospects need to know this changes their calculus on "we'll deal with it later."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3: Competitive Intel -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          <span class="card-icon">🎯</span>
+          <span class="card-label">Competitive Intelligence</span>
+          <span class="card-count">5 items today</span>
+        </div>
+        <div class="card-actions">
+          <button class="copy-btn">Copy Section</button>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <div class="item">
+          <div class="item-meta">
+            <span class="comp-tag comp-rubrik">Rubrik</span>
+            <span class="severity severity-high">Outage</span>
+            <span class="item-date">Apr 3</span>
+            <span class="item-source"><a href="#">The Register</a></span>
+          </div>
+          <div class="item-title">Rubrik Cloud Vault goes down for 4 hours — customers unable to initiate recovery jobs</div>
+          <div class="item-body">Rubrik's cloud-hosted vault service experienced a 4-hour outage Thursday afternoon. Customers reported inability to initiate recovery jobs or access the management console. Rubrik cited "infrastructure maintenance" — no ransomware involvement. <strong>9 confirmed complaints on Reddit r/sysadmin.</strong></div>
+          <div class="talk-track">
+            <div class="talk-track-label">💬 Talk Track Idea</div>
+            <div class="talk-track-text">"When you go to recover from a ransomware event, the last thing you want is your backup vendor's console being unavailable. Worth asking any Rubrik eval: what's their SLA on the management plane itself, not just the data?"</div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-meta">
+            <span class="comp-tag comp-veeam">Veeam</span>
+            <span class="severity severity-medium">Pricing</span>
+            <span class="item-date">Apr 1</span>
+            <span class="item-source"><a href="#">CRN</a></span>
+          </div>
+          <div class="item-title">Veeam announces 18% price increase effective June 1 — partners given 30-day notice</div>
+          <div class="item-body">Veeam notified resellers of an across-the-board 18% price increase on Universal Licensing, effective June 1. Applies to renewals and new bookings. Partners expressed frustration at the 30-day window. Several large VAR partners quoted in CRN as "actively looking at alternatives."</div>
+          <div class="talk-track">
+            <div class="talk-track-label">💬 Talk Track Idea</div>
+            <div class="talk-track-text">"If they're currently on Veeam or evaluating it — they likely don't know about the June 1 price hike. This creates urgency to lock in Commvault pricing now, and positions you as the person who's watching out for them."</div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-meta">
+            <span class="comp-tag comp-cohesity">Cohesity</span>
+            <span class="severity severity-low">Personnel</span>
+            <span class="item-date">Mar 30</span>
+            <span class="item-source"><a href="#">LinkedIn</a></span>
+          </div>
+          <div class="item-title">Cohesity VP of Federal Sales departs — second senior federal departure in 60 days</div>
+          <div class="item-body">Jim Walsh, VP of Federal at Cohesity, announced his departure on LinkedIn. This follows the February exit of their Federal SE Director. Two senior federal exits in 60 days is notable for a segment they publicly targeted as a growth area in 2025.</div>
+          <div class="talk-track">
+            <div class="talk-track-label">💬 Talk Track Idea</div>
+            <div class="talk-track-text">"If you have a federal deal where Cohesity is on the shortlist, leadership instability in their federal org is worth raising — who's going to be the account team continuity if they win?"</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /grid -->
+
+  <!-- SECTION 4: Deal Ammunition -->
+  <div class="card" style="margin-top:16px;">
+    <div class="card-header">
+      <div class="card-title">
+        <span class="card-icon">⚡</span>
+        <span class="card-label">Deal Ammunition</span>
+        <span class="card-count">AI-generated · use as starting point</span>
+      </div>
+      <div class="card-actions">
+        <button class="copy-btn">Copy Section</button>
+        <span class="chevron">▼</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="ammo-disclaimer">⚠️ These are AI-generated suggestions based on today's news. You know your deals and customers better than any AI. Treat these as conversation starters, not scripts.</p>
+
+      <div class="ammo-item">
+        <div class="ammo-num">1</div>
+        <div class="ammo-content">
+          <div class="ammo-title">Lead with the healthcare breach if you're in healthcare or FSI</div>
+          <div class="ammo-body">The 6-day outage happened because backups were hit first. This is a recovery story, not just a backup story. Useful framing for discovery: "What's your current RTO assumption if your backup environment is compromised at the same time as production?"</div>
+          <div class="ammo-refs"><span class="ammo-ref">→ Threat #1</span><span class="ammo-ref">Cleanroom recovery</span><span class="ammo-ref">Threat scan</span></div>
+        </div>
+      </div>
+
+      <div class="ammo-item">
+        <div class="ammo-num">2</div>
+        <div class="ammo-content">
+          <div class="ammo-title">SEC disclosure update creates urgency for public company prospects</div>
+          <div class="ammo-body">Backup failure now explicitly counts as a material incident under SEC guidance. If your prospect is a public company saying "we'll get to this next quarter," the 4-day disclosure clock changes that math.</div>
+          <div class="ammo-refs"><span class="ammo-ref">→ Policy #2</span><span class="ammo-ref">Compliance angle</span></div>
+        </div>
+      </div>
+
+      <div class="ammo-item">
+        <div class="ammo-num">3</div>
+        <div class="ammo-content">
+          <div class="ammo-title">Veeam price hike creates a window for competitive displacement</div>
+          <div class="ammo-body">June 1 deadline is real urgency. If a prospect is on Veeam renewal, the 18% increase is a forcing function. Even if they weren't evaluating alternatives, this is worth a conversation before their renewal lands.</div>
+          <div class="ammo-refs"><span class="ammo-ref">→ Competitive #2</span><span class="ammo-ref">Displacement play</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== SMS MOCKUP SECTION ===== -->
+  <div class="sms-section">
+    <div class="sms-section-title">📱 SMS Digest Mockup</div>
+    <div class="phone-wrap">
+
+      <!-- Phone 1: Full SMS -->
+      <div>
+        <div style="font-size:12px;color:#64748b;margin-bottom:10px;font-weight:600;">Standard Digest (sent 6:15 AM)</div>
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-statusbar"><span>9:41</span><span>●●● 5G 🔋</span></div>
+            <div class="phone-messages-header">
+              <div class="phone-contact">Commvault Intel</div>
+              <div class="phone-contact-sub">Daily Briefing · Apr 5</div>
+            </div>
+            <div class="phone-body">
+              <div class="sms-bubble">
+                <div class="sms-text">
+                  🛡️ <strong>Field Intel · Apr 5</strong><br><br>
+                  🔴 <strong>Threats</strong><br>
+                  • Healthcare ransomware — 6-day outage, backups hit first → <a href="#">link</a><br>
+                  • NYC broker-dealer loses 18mo data, backup corruption → <a href="#">link</a><br><br>
+                  📋 <strong>Regulatory</strong><br>
+                  • SEC: backup failure = material incident, 4-day disclosure → <a href="#">link</a><br><br>
+                  🎯 <strong>Competitive</strong><br>
+                  • Rubrik 4hr outage, recovery jobs blocked → <a href="#">link</a><br>
+                  • Veeam +18% price hike June 1 → <a href="#">link</a><br>
+                  • Cohesity federal VP out (2nd in 60d) → <a href="#">link</a><br><br>
+                  Full briefing + talk tracks:<br>
+                  <a href="#">intel.commvault.com/today</a>
+                </div>
+                <div class="sms-time">6:15 AM</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div class="phone-note">
+        <strong>SMS Design Decisions:</strong><br><br>
+        • Each bullet = one item with a direct source link — reps can tap and read the real article before a call<br><br>
+        • Sections labeled clearly (Threats / Regulatory / Competitive) so they can skip to what's relevant<br><br>
+        • Link to full briefing at the bottom — that's where talk tracks and Deal Ammo live<br><br>
+        • No AI suggestions in the SMS — just facts + links. The full web app has the suggested talk tracks.<br><br>
+        • Sent at 6:15 AM so reps have it before they're on the road<br><br>
+        <strong>Open question for you:</strong> Do you want a shorter "TL;DR" version (top 3 items only, always under 160 chars for pure SMS), or is a longer iMessage-style digest like this fine since most reps have smartphones?
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+</body>
+</html>

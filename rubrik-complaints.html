@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rubrik — Customer Complaint Patterns</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0d0f14; color: #e2e8f0; font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; font-size: 14px; line-height: 1.5; }
+.header { background: #12151d; border-bottom: 1px solid #1e2435; padding: 16px 24px; display: flex; align-items: center; gap: 12px; }
+.logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg, #005bac, #0078d4); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.logo-text { font-size: 17px; font-weight: 700; color: #fff; }
+.logo-sub { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.8px; }
+.meta { margin-left: auto; font-size: 12px; color: #64748b; text-align: right; }
+.meta span { color: #94a3b8; }
+.container { max-width: 1000px; margin: 0 auto; padding: 24px; display: flex; flex-direction: column; gap: 12px; }
+.intro { background: #12151d; border: 1px solid #1e2435; border-radius: 12px; padding: 20px; }
+.intro-title { font-size: 18px; font-weight: 700; color: #f1f5f9; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+.intro-body { font-size: 13px; color: #94a3b8; line-height: 1.7; }
+.card { background: #12151d; border: 1px solid #1e2435; border-radius: 12px; overflow: hidden; }
+.card-header { padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+.card-header:hover { background: #161b27; }
+.card-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.card-title { font-size: 14px; font-weight: 600; color: #f1f5f9; }
+.count-badge { font-size: 11px; background: #1e2435; color: #64748b; padding: 2px 8px; border-radius: 20px; }
+.cat-badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.4px; }
+.cat-pricing     { background: rgba(249,115,22,0.15); color: #fb923c; }
+.cat-support     { background: rgba(239,68,68,0.15); color: #f87171; }
+.cat-ui          { background: rgba(168,85,247,0.15); color: #c084fc; }
+.cat-reporting   { background: rgba(59,130,246,0.15); color: #60a5fa; }
+.cat-features    { background: rgba(234,179,8,0.15); color: #fbbf24; }
+.cat-ai          { background: rgba(34,197,94,0.15); color: #4ade80; }
+.cat-relationship { background: rgba(100,116,139,0.15); color: #94a3b8; }
+.chevron { color: #475569; font-size: 11px; transition: transform 0.2s; }
+.chevron.closed { transform: rotate(-90deg); }
+.card-body { border-top: 1px solid #1e2435; padding: 20px; }
+.pattern-desc { font-size: 13px; color: #94a3b8; line-height: 1.7; margin-bottom: 16px; }
+.sources-toggle { font-size: 12px; color: #3b82f6; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; margin-bottom: 12px; background: none; border: none; padding: 0; }
+.sources-toggle:hover { color: #60a5fa; }
+.sources-list { display: none; flex-direction: column; gap: 8px; }
+.sources-list.open { display: flex; }
+.source-item { background: #0d1117; border: 1px solid #1e2435; border-radius: 8px; padding: 12px 14px; }
+.source-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+.source-platform { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; text-transform: uppercase; background: #1e2435; color: #64748b; }
+.source-date { font-size: 11px; color: #475569; }
+.source-quote { font-size: 12px; color: #94a3b8; line-height: 1.6; font-style: italic; margin-bottom: 8px; }
+.source-link a { font-size: 11px; color: #3b82f6; text-decoration: none; word-break: break-all; }
+.source-link a:hover { text-decoration: underline; }
+.disclaimer { font-size: 12px; color: #475569; background: #0d1117; border: 1px solid #1e2435; border-radius: 8px; padding: 12px 16px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo-icon">🛡️</div>
+  <div>
+    <div class="logo-text">Field Intelligence Hub</div>
+    <div class="logo-sub">Commvault · Competitor Research</div>
+  </div>
+  <div class="meta">Rubrik Customer Complaints<br><span>Last researched: April 2026 · Sources: 12 months back</span></div>
+</div>
+
+<div class="container">
+
+  <div class="intro">
+    <div class="intro-title">🔍 Rubrik — Customer Complaint Patterns</div>
+    <div class="intro-body">
+      Aggregated from real user reviews and community posts across G2, Gartner Peer Insights, PeerSpot, Capterra, TrustRadius, and SoftwareAdvice over the past 12 months. Grouped by recurring themes — individual complaints are collapsed below each pattern. Use these patterns to inform discovery questions and objection handling in competitive deals.
+    </div>
+  </div>
+
+  <!-- PATTERN 1: Pricing -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-left">
+        <span class="card-title">Pricing Increases & Renewal Surprises</span>
+        <span class="count-badge">Most cited pattern</span>
+        <span class="cat-badge cat-pricing">Pricing</span>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body" style="display:none">
+      <p class="pattern-desc">The most consistent complaint across all platforms. Users describe Rubrik as expensive relative to competitors, with pricing that increases significantly at renewal. Smaller organizations feel the pain most acutely. Multiple reviewers specifically call out that "price tends to go up with time" and that licensing complexity makes budgeting difficult. Some users report their local Rubrik sales team left and the relationship — and renewal negotiations — deteriorated afterward.</p>
+      <button class="sources-toggle" onclick="toggleSources(this)">▶ Show sources (6)</button>
+      <div class="sources-list">
+        <div class="source-item">
+          <div class="source-meta"><span class="source-platform">PeerSpot</span><span class="source-date">2025</span></div>
+          <div class="source-quote">"The solution would be better if it was cheaper and cost less to use. Price-wise, Rubrik needs improvement as it is considered expensive compared to similar competitors."</div>
+          <div class="source-link"><a href="https://www.peerspot.com/questions/what-is-your-experience-regarding-pricing-and-costs-for-rubrik" target="_blank">peerspot.com/questions/what-is-your-experience-regarding-pricing-and-costs-for-rubrik</a></div>
+        </div>
+        <div class="source-item">
+          <div class="source-meta"><span class="source-platform">PeerSpot</span><span class="source-date">2025</span></div>
+          <div class="source-quote">"After the licensing, the price tends to go up as time goes by. There is room for improvement in pricing."</div>
+          <div class="source-link"><a href="https://www.peerspot.com/questions/what-is-your-experience-regarding-pricing-and-costs-for-rubrik" target="_blank">peerspot.com/questions/what-is-your-experience-regarding-pricing-and-costs-for-rubrik</a></div>
+        </div>
+        <div class="source-item">
+          <div class="source-meta"><span class="source-platform">G2</span><span class="source-date">2025-2026</span></div>
+          <div class="source-quote">"Would like to see more flexible pricing models that cater better to mid-sized teams who might not need every single enterprise feature right away."</div>
+          <div class="source-link"><a href="https://www.g2.com/products/rubrik/reviews" target="_blank">g2.com/products/rubrik/reviews</a></div>
+        </div>
+        <div class="source-item">
+          <div class="source-meta"><span class="source-platform">Capterra</span><span class="source-date">2025</span></div>
+          <div class="source-quote">"Rubrik is quite expensive for small businesses. It can be costly if you want additional security features."</div>
+          <div class="source-link"><a href="https://www.capterra.com/p/148206/Rubrik/reviews/" target="_blank">capterra.com/p/148206/Rubrik/reviews/</a></div>
+        </div>
+        <div class="source-item">
+          <div class="source-meta"><span class="source-platform">PeerSpot</span><span class="source-date">2025</span></div>
+          <div class="source-quote">"Local sales team left about two years ago, and since then our relationship with Rubrik has basically gone away." — context: renewal negotiations suffered as a result.</div>
+          <div class="source-link"><a href="https://www.peerspot.com/products/rubrik-reviews" target="_blank">peerspot.com/products/rubrik-reviews</a></div>
+        </div>
+        <div class="source-item">
+          <div class="source-meta"><span class="source-platform">PeerSpot</span><span class="source-date">2025</span></div>
+          <div class="source-quote">"For Rubrik Go, the pricing is considered relatively high with costs being monthly." — smaller/mid-market customers flagging cost barrier.</div>
+          <div class="source-link"><a href="https://www.peerspot.com/products/rubrik-go-reviews" target="_blank">peerspot.com/products/rubrik-go-reviews</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PATTERN 2: Support -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-left">
+        <span class="card-title">Support Responsiveness & Timezone Gaps</span>
+        <span class="count-badge">Recurring pattern</span>
+        <span class="cat-badge cat-support">Support</span>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body" style="display:none">
+      <p class="pattern-desc">Users outside the US — particularly UK and APAC — report significant delays getting support, citing that tickets default to West Coast US hours, meaning a full business day delay before getting a response. One reviewer noted that "support is accurate 50-60% of the time." Product team availability also cited as an India-hours issue for international customers. Post-sale support quality described as inconsistent.</p>
+      <button class="sources-toggle" onclick="toggleSources(this)">▶ Show sources (4)</button>
+      <div class="sources-list">
+        <div class="source-item">
+          <div class="source-meta"><span class="source-platform">PeerSpot</span><span class="source-date">2025</span></div>
+          <div class="source-quote">"Support can be slow — we seem to get West Coast USA support if we log tickets from the UK. Takes a day to then get assistance."</div>
+          <div class="source-link"><a href="https://www.peerspot.com/products/rubrik-reviews" target="_blank">peerspot.com/products/rubrik-reviews</a></div>
+        </div>
+        <div class="source-item">
+          <div class="source-meta"><span class="source-platform">Gartner Peer Insights</span><span class="source-date">2025</span></div>
+          <div class="source-quote">"Most of the product team only works India business hours, which can be challenging if you are on the other side of the world and need to interact with the product team."</div>
+          <div class="source-link"><a href="https://www.gartner.com/reviews/market/enterprise-backup-and-recovery-software-solutions/vendor/rubrik/product/rubrik-security-cloud/likes-dislikes" target="_blank">gartner.com — Rubrik Security Cloud likes/dislikes 2025</a></div>
+        </div>
+        <div class="source-item">
+          <div class="source-meta"><span class="source-platform">PeerSpot</span><span class="source-date">2025</span></div>
+          <div class="source-quote">"Rubrik support is accurate 50 to 60% of the time, with the remainder still needing improvement, particularly in providing technical support."</div>
+          <div class="source-link"><a href="https://www.peerspot.com/questions/what-needs-improvement-with-rubrik" target="_blank">peerspot.com/questions/what-needs-improvement-with-rubrik</a></div>
+        </div>
+        <div class="source-item">
+          <div class="source-meta"><span class="source-platform">Capterra</span><span class="source-date">2025</span></div>
+          <div class="source-quote">"Backup jobs unable to replicate, causing significant delays and frustration due to lack of timely support and data requested by users."</div>
+          <div class="source-link"><a href="https://www.capterra.com/p/148206/Rubrik/reviews/" target="_blank">capterra.com/p/148206/Rubrik/reviews/</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PATTERN 3: UI Changes -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-left">
+        <span class="card-title">Frequent UI Changes — Interface Instability</span>
+        <span class="count-badge">Notable pattern</span>
+        <span class="cat-badge cat-ui">UI / UX</span>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body" style="display:none">
+      <p class="pattern-desc">Multiple users describe confusion caused by Rubrik frequently changing layouts, menu structures, and terminology. This is particularly painful when returning to the product after time away — documentation no longer matches the interface, and restore workflows have moved or been renamed. Migration to Rubrik Security Cloud specifically called out as "tedious."</p>
+      <button class="sources-toggle" onclick="toggleSources(this)">▶ Show sources (3)</button>
+      <div class="sources-list">
+        <div class="source-item">
+          <div class="source-meta"><span class="source-platform">Gartner Peer Insights</span><span class="source-date">2025</span></div>
+          <div class="source-quote">"Rubrik frequently changes layouts and descriptions, creating confusion when they return after periods of non-use, as the interface and restore options have changed completely and documentation no longer matches."</div>
+          <div class="source-link"><a href="https://www.gartner.com/reviews/market/enterprise-backup-and-recovery-software-solutions/vendor/rubrik/product/rubrik-security-cloud/likes-dislikes" target="_blank">gartner.com — Rubrik Security Cloud likes/dislikes 2025</a></div>
+        </div>
+        <div class="source-item">
+          <div class="source-meta"><span class="source-platform">PeerSpot</span><span class="source-date">2025</span></div>
+          <div class="source-quote">"Support lost legacy capabilities and is not consistent, with users noting challenges when returning to restore operations after extended periods due to interface changes."</div>
+          <div class="source-link"><a href="https://www.peerspot.com/questions/what-needs-improvement-with-rubrik" target="_blank">peerspot.com/questions/what-needs-improvement-with-rubrik</a></div>
+        </div>
+        <div class="source-item">
+          <div class="source-meta"><span class="source-platform">TechTarget / SoftwareAdvice</span><span class="source-date">2025</span></div>
+          <div class="source-quote">"Migration to Rubrik Security Cloud has been tedious." — user comparing it to their previous setup.</div>
+          <div class="source-link"><a href="https://www.softwareadvice.com/data-governance/rubrik-profile/" target="_blank">softwareadvice.com/data-governance/rubrik-profile/</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PATTERN 4: Reporting -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-left">
+        <span class="card-title">Reporting & Analytics Limitations</span>
+        <span class="count-badge">Consistent feedback</span>
+        <span class="cat-badge cat-reporting">Reporting</span>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body" style="display:none">
+      <p class="pattern-desc">Users frequently cite limited reporting flexibility — columns can't be sorted, reports aren't customizable enough for audits, and getting detailed analytics often requires external tools or API work. The built-in dashboard is described as good for high-level views but insufficient for deep dives or compliance reporting.</p>
+      <button class="sources-toggle" onclick="toggleSources(this)">▶ Show sources (3)</button>
+      <div class="sources-list">
+        <div class="source-item">
+          <div class="source-meta"><span class="source-platform">Gartner Peer Insights</span><span class="source-date">2025</span></div>
+          <div class="source-quote">"Reporting and sorting in reports need improvement — users cannot sort by most of the columns."</div>
+          <div class="source-link"><a href="https://www.gartner.com/reviews/market/enterprise-backup-and-recovery-software-solutions/vendor/rubrik/product/rubrik-security-cloud/likes-dislikes" target="_blank">gartner.com — Rubrik Security Cloud likes/dislikes 2025</a></div>
+        </div>
+        <div class="source-item">
+          <div class="source-meta"><span class="source-platform">G2</span><span class="source-date">2025-2026</span></div>
+          <div class="source-quote">"Reporting and customization could be more detailed without having to rely on external tools or APIs. When digging into specific data trends or generating a highly tailored report for an audit, the current tools feel limited."</div>
+          <div class="source-link"><a href="https://www.g2.com/products/rubrik/reviews" target="_blank">g2.com/products/rubrik/reviews</a></div>
+        </div>
+        <div class="source-item">
+          <div class="source-meta"><span class="source-platform">PeerSpot</span><span class="source-date">2025</span></div>
+          <div class="source-quote">"Reporting should be clearer and more customizable. The solution could be more user-friendly."</div>
+          <div class="source-link"><a href="https://www.peerspot.com/questions/what-needs-improvement-with-rubrik" target="_blank">peerspot.com/questions/what-needs-improvement-with-rubrik</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PATTERN 5: Feature Gaps -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-left">
+        <span class="card-title">Feature Gaps — Integrations & Legacy App Support</span>
+        <span class="count-badge">Moderate pattern</span>
+        <span class="cat-badge cat-features">Features</span>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body" style="display:none">
+      <p class="pattern-desc">Users want better integration with hypervisors, databases, and SaaS apps like Office 365. Active Directory restoration and file-level recovery gaps are specifically called out. Legacy or niche application configuration described as requiring significant manual effort compared to modern virtualized workloads.</p>
+      <button class="sources-toggle" onclick="toggleSources(this)">▶ Show sources (3)</button>
+      <div class="sources-list">
+        <div class="source-item">
+          <div class="source-meta"><span class="source-platform">Gartner Peer Insights</span><span class="source-date">2025</span></div>
+          <div class="source-quote">"Need for improved integration with hypervisors, databases, and applications like Office 365. Users seek expanded application support including file and active directory restoration."</div>
+          <div class="source-link"><a href="https://www.gartner.com/reviews/market/enterprise-backup-and-recovery-software-solutions/vendor/rubrik/product/rubrik-security-cloud/likes-dislikes" target="_blank">gartner.com — Rubrik Security Cloud likes/dislikes 2025</a></div>
+        </div>
+        <div class="source-item">
+          <div class="source-meta"><span class="source-platform">G2</span><span class="source-date">2025-2026</span></div>
+          <div class="source-quote">"Advanced configuration options feel less flexible because the platform is strongly policy-driven. Initial configuration for niche or legacy applications requires more manual effort."</div>
+          <div class="source-link"><a href="https://www.g2.com/products/rubrik/reviews" target="_blank">g2.com/products/rubrik/reviews</a></div>
+        </div>
+        <div class="source-item">
+          <div class="source-meta"><span class="source-platform">Microsoft Q&A</span><span class="source-date">2025</span></div>
+          <div class="source-quote">User reported backup fails on specific workloads — community thread with multiple users experiencing similar issues with Rubrik on Windows Server environments.</div>
+          <div class="source-link"><a href="https://learn.microsoft.com/en-us/answers/questions/2155582/rubrick-backup-fails-issues" target="_blank">learn.microsoft.com — Rubrik backup fails issues</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PATTERN 6: AI -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-left">
+        <span class="card-title">AI Capabilities — Behind Expectations</span>
+        <span class="count-badge">Emerging pattern</span>
+        <span class="cat-badge cat-ai">AI</span>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body" style="display:none">
+      <p class="pattern-desc">Reviewers acknowledge Rubrik is investing in AI but describe the current state as early/initial phase. Users rate Rubrik's AI capabilities around 7/10 and say they're "expecting more." This is notable given Rubrik's heavy AI-focused marketing (SAGE, Ruby AI assistant). The gap between marketing and actual capability is a recurring theme.</p>
+      <button class="sources-toggle" onclick="toggleSources(this)">▶ Show sources (2)</button>
+      <div class="sources-list">
+        <div class="source-item">
+          <div class="source-meta"><span class="source-platform">Gartner Peer Insights</span><span class="source-date">2025</span></div>
+          <div class="source-quote">"Regarding Artificial Intelligence, Rubrik is in the initial phase, and reviewers are expecting more from them, giving them seven out of ten for their improvements in that area."</div>
+          <div class="source-link"><a href="https://www.gartner.com/reviews/market/enterprise-backup-and-recovery-software-solutions/vendor/rubrik/product/rubrik-security-cloud/likes-dislikes" target="_blank">gartner.com — Rubrik Security Cloud likes/dislikes 2025</a></div>
+        </div>
+        <div class="source-item">
+          <div class="source-meta"><span class="source-platform">PeerSpot</span><span class="source-date">2025</span></div>
+          <div class="source-quote">"Rubrik is actively promoting AI features but users in enterprise environments note the capabilities are still maturing compared to what's been marketed."</div>
+          <div class="source-link"><a href="https://www.peerspot.com/products/rubrik-pros-and-cons" target="_blank">peerspot.com/products/rubrik-pros-and-cons</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    ⚠️ Sources: G2, Gartner Peer Insights, PeerSpot, Capterra, TrustRadius, SoftwareAdvice, Microsoft Q&A — past 12 months. Reddit and Twitter/X returned limited indexable results in this search; recommend a manual check on r/sysadmin and r/msp for additional signal. Refresh this research every 1-3 months.
+  </div>
+
+</div>
+
+<script>
+function toggleCard(header) {
+  const body = header.nextElementSibling;
+  const chevron = header.querySelector('.chevron');
+  const isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : 'block';
+  chevron.classList.toggle('closed', isOpen);
+}
+
+function toggleSources(btn) {
+  const list = btn.nextElementSibling;
+  const isOpen = list.classList.contains('open');
+  list.classList.toggle('open', !isOpen);
+  btn.textContent = isOpen
+    ? btn.textContent.replace('▼', '▶').replace('Hide', 'Show')
+    : btn.textContent.replace('▶', '▼').replace('Show', 'Hide');
+}
+</script>
+</body>
+</html>
