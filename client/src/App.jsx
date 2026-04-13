@@ -3,11 +3,13 @@ import './App.css';
 import Rail from './components/Rail';
 import ThreatsSection from './components/ThreatsSection';
 import FinancialsSection from './components/FinancialsSection';
+import AccessGate from './components/AccessGate';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('briefing');
 
   return (
+    <AccessGate>
     <div className="app">
       <Rail />
       <div className="main">
@@ -45,5 +47,6 @@ export default function App() {
         </div>
       </div>
     </div>
+    </AccessGate>
   );
 }

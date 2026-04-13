@@ -662,6 +662,94 @@ select.f-select option { background: #0f172a; color: var(--t1); }
   border-radius: 5px;
 }
 
+/* ─── ACCESS GATE ────────────────────────────────────────── */
+.gate-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.gate-card {
+  background: var(--card);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--card-b);
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  padding: 40px 36px 36px;
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.gate-logo {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #1d4ed8, #3b82f6);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 22px; font-weight: 900;
+  box-shadow: 0 0 24px rgba(59,130,246,.5);
+  margin-bottom: 8px;
+}
+.gate-title {
+  font-size: 18px; font-weight: 700;
+  color: var(--t0); letter-spacing: -.4px;
+  text-align: center;
+}
+.gate-sub {
+  font-size: 12px; color: var(--t3);
+  text-align: center;
+  margin-bottom: 8px;
+}
+.gate-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+.gate-input {
+  width: 100%;
+  background: rgba(15,20,40,.6);
+  border: 1px solid var(--card-b);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--t0);
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+  text-align: center;
+  letter-spacing: 2px;
+}
+.gate-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
+.gate-input.gate-input-err { border-color: var(--crit); box-shadow: 0 0 0 3px var(--crit-dim); animation: shake .3s ease; }
+.gate-err { font-size: 11px; color: var(--crit-l); text-align: center; margin: 0; }
+.gate-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--accent);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 13px; font-weight: 700;
+  cursor: pointer;
+  transition: opacity .15s, transform .1s;
+  letter-spacing: .3px;
+}
+.gate-btn:hover { opacity: .9; }
+.gate-btn:active { transform: scale(.98); }
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%      { transform: translateX(-6px); }
+  60%      { transform: translateX(6px); }
+}
+
 /* ─── RESPONSIVE ─────────────────────────────────────────── */
 
 /* ── Wide tablet: sidebar drops below, shows as 2-col cards ── */
