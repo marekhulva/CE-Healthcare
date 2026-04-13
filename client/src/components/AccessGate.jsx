@@ -25,7 +25,7 @@ export default function AccessGate({ children }) {
     <div className="gate-wrap">
       <div className="gate-card">
         <div className="gate-logo">✚</div>
-        <h2 className="gate-title">CE Healthcare Intelligence</h2>
+        <h2 className="gate-title">Competitive Intelligence — Healthcare</h2>
         <p className="gate-sub">Enter access code to continue</p>
         <form className="gate-form" onSubmit={handleSubmit}>
           <input

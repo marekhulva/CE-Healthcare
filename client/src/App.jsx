@@ -24,7 +24,7 @@ export default function App() {
           <div className="page-head">
             <div className="page-title">
               <div className="avatar-circle">⚠</div>
-              <h1>Healthcare Incidents</h1>
+              <h1>Competitive Intelligence — Healthcare</h1>
             </div>
           </div>
 
